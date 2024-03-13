@@ -1,2 +1,18 @@
-<h1>StaticPages#index</h1>
-<p>Find me in app/views/static_pages/index.html.erb</p>
+<h1>Find a Flicker User's Photostream</h1>
+
+<%= form_tag(root_path, method: :get) do %>
+  <%= label_tag :user_id, "Enter User ID" %>
+  <%= text_field_tag :user_id %><br><br>
+  <%= submit_tag "Fetch Photostream" %>
+<% end %>
+
+<% if @photos.present? %>
+  <h2>Photostream</h2>
+  <ul>
+    <% @photos.each do |photo_url| %>
+      <li><%= image_tag(photo_url) %></li>
+    <% end %>
+  </ul>
+<% elsif flash[:error].present? %>
+  <p><%= flash[:error] %></p>
+<% end %>
