@@ -11,7 +11,13 @@ class StaticPagesController < ApplicationController
       flickr = Flickr.new
       begin
         photostream = flickr.people.getPhotos(user_id: user_id)
-        @photos = photostream.map { |photo| photo.url }
+        @photos = photostream.map do |photo|
+          farm = photo['farm']
+          server = photo['server']
+          id = photo['id']
+          secret = photo['secret']
+          "https://farm#{farm}.staticflickr.com/#{server}/#{id}_#{secret}.jpg"
+        end
       rescue Flickr::FailedResponse => e
         flash[:error] = "Error fetching photostream: #{e.message}"
       end

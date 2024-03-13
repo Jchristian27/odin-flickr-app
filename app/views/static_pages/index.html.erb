@@ -8,7 +8,7 @@
 
 <% if @photos.present? %>
   <h2>Photostream</h2>
-  <ul>
+  <ul style="list-style-type: none;">
     <% @photos.each do |photo_url| %>
       <li><%= image_tag(photo_url) %></li>
     <% end %>
